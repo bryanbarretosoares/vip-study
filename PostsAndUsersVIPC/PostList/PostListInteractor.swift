@@ -8,7 +8,6 @@
 import Foundation
 
 protocol PostListInteracting {
-    func didLoad()
     func fetchPosts()
     func didSelectPost(_ post: Post)
 }
@@ -25,9 +24,6 @@ class PostListInteractor {
 }
 
 extension PostListInteractor: PostListInteracting {
-    func didLoad() {
-        presenter.initialConfig()
-    }
     
     func fetchPosts() {
         service.fetchPosts()

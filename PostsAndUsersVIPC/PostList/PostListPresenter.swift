@@ -13,7 +13,6 @@ protocol PostListPresenting {
     func presentError(_ error: Error)
     func presentPosts(_ postList: [Post])
     func showPostDetail(post: Post)
-    func initialConfig()
 }
 
 class PostListPresenter {
@@ -27,11 +26,6 @@ class PostListPresenter {
 }
 
 extension PostListPresenter: PostListPresenting {
-    
-    func initialConfig() {
-        viewController?.setTitle("Posts")
-        viewController?.setBackgroundColor(.systemBackground)
-    }
     
     func presentError(_ error: Error) {
         viewController?.displayError(message: error.localizedDescription)

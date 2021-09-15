@@ -10,8 +10,6 @@ import UIKit
 protocol PostListDisplaying: AnyObject {
     func displayError(message: String)
     func displayPosts(_ posts: [Post])
-    func setTitle(_ title: String)
-    func setBackgroundColor(_ color: UIColor)
 }
 
 class PostListViewController: UIViewController {
@@ -47,20 +45,18 @@ class PostListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor.didLoad()
+        initialConfiguration()
         interactor.fetchPosts()
         buildLayout()
+    }
+    
+    private func initialConfiguration() {
+        view.backgroundColor = .systemBackground
+        title = "Posts"
     }
 }
 
 extension PostListViewController: PostListDisplaying {
-    func setTitle(_ title: String) {
-        self.title = title
-    }
-    
-    func setBackgroundColor(_ color: UIColor) {
-        self.view.backgroundColor = color
-    }
     
     func displayError(message: String) {
         print(message)
