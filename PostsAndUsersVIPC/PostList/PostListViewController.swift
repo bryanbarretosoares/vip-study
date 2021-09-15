@@ -14,8 +14,8 @@ protocol PostListDisplaying: AnyObject {
 
 class PostListViewController: UIViewController {
     
-    let interactor: PostListInteracting
-    var posts: [Post] = []
+    private let interactor: PostListInteracting
+    private var posts: [Post] = []
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
@@ -93,5 +93,8 @@ extension PostListViewController: UITableViewDataSource {
 }
 
 extension PostListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let post = posts[indexPath.row]
+        interactor.didSelectPost(post)
+    }
 }

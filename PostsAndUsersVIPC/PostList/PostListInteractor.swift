@@ -14,8 +14,8 @@ protocol PostListInteracting {
 
 class PostListInteractor {
     
-    let presenter: PostListPresenting
-    let service: PostListServicing
+    private let presenter: PostListPresenting
+    private let service: PostListServicing
     
     init(presenter: PostListPresenting, service: PostListServicing) {
         self.presenter = presenter

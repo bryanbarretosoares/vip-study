@@ -9,7 +9,6 @@ import UIKit
 
 protocol PostListPresenting {
     var viewController: PostListDisplaying? { get }
-    var coordinator: PostListCoordinating { get }
     func presentError(_ error: Error)
     func presentPosts(_ postList: [Post])
     func showPostDetail(post: Post)
@@ -17,7 +16,7 @@ protocol PostListPresenting {
 
 class PostListPresenter {
     weak var viewController: PostListDisplaying?
-    var coordinator: PostListCoordinating
+    private let coordinator: PostListCoordinating
     
     init(coordinator: PostListCoordinating) {
         self.coordinator = coordinator
