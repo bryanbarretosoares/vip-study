@@ -17,11 +17,12 @@ protocol PostListDisplaying: AnyObject {
 class PostListViewController: UIViewController {
     
     let interactor: PostListInteracting
+    var posts: [Post] = []
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
-        table.delegate = interactor
-        table.dataSource = interactor
+        table.delegate = self
+        table.dataSource = self
         table.register(PostListCell.self, forCellReuseIdentifier: PostListCell.id)
         table.tableFooterView = UIView()
         table.backgroundView = loading
@@ -66,7 +67,7 @@ extension PostListViewController: PostListDisplaying {
     }
     
     func displayPosts(_ posts: [Post]) {
-//        self.posts = posts
+        self.posts = posts
         self.tableView.reloadData()
         self.loading.stopAnimating()
     }
@@ -80,4 +81,21 @@ extension PostListViewController: ViewCoding {
     func setupConstraints() {
         tableView.frame = view.frame
     }
+}
+
+extension PostListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let post = posts[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostListCell.id, for: indexPath) as? PostListCell
+        cell?.configure(post: post)
+        return cell ?? UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+}
+
+extension PostListViewController: UITableViewDelegate {
+    
 }

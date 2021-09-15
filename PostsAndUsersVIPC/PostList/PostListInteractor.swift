@@ -5,7 +5,7 @@
 //  Created by Bryan Barreto Soares on 13/09/21.
 //
 
-import UIKit
+import Foundation
 
 protocol PostListInteracting {
     func didLoad()
@@ -17,7 +17,6 @@ class PostListInteractor {
     
     let presenter: PostListPresenting
     let service: PostListServicing
-    var posts: [Post] = []
     
     init(presenter: PostListPresenting, service: PostListServicing) {
         self.presenter = presenter
@@ -41,7 +40,6 @@ extension PostListInteractor: PostListInteracting {
 
 extension PostListInteractor: PostListServiceDelegate {
     func didFetch(data: [Post]) {
-        self.posts = data
         presenter.presentPosts(data)
     }
     
