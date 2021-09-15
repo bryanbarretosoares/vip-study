@@ -16,7 +16,6 @@ enum PostListFactory {
         let viewController = PostListViewController(interactor: interactor)
         coordinator.viewController = viewController
         presenter.viewController = viewController
-        service.delegate = interactor
         return viewController
     }
 }

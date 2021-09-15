@@ -26,20 +26,17 @@ class PostListInteractor {
 extension PostListInteractor: PostListInteracting {
     
     func fetchPosts() {
-        service.fetchPosts()
+        service.fetchPosts { [weak self] result in
+            switch result {
+            case let .success(postModels):
+                self?.presenter.presentPosts(postModels)
+            case let .failure(error):
+                self?.presenter.presentError(error)
+            }
+        }
     }
     
     func didSelectPost(_ post: PostModel) {
         presenter.showPostDetail(post: post)
-    }
-}
-
-extension PostListInteractor: PostListServiceDelegate {
-    func didFetch(data: [PostModel]) {
-        presenter.presentPosts(data)
-    }
-    
-    func didFail(with error: Error) {
-        presenter.presentError(error)
     }
 }
