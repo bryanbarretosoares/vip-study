@@ -11,11 +11,15 @@ protocol ViewCoding {
     func viewHierarchy()
     func setupConstraints()
     func buildLayout()
+    func configureViews()
 }
 
 extension ViewCoding {
     func buildLayout() {
         viewHierarchy()
         setupConstraints()
+        configureViews()
     }
+    
+    func configureViews() { }
 }
