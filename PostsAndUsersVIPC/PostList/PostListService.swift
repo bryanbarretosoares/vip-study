@@ -35,7 +35,7 @@ extension PostListService: PostListServicing {
     
     func fetchPosts(completion: @escaping (Result<[PostModel], APIError>) -> Void) {
         let endpoint: PostEndpoint = .getPost
-        network.fetchData(endpoint: endpoint) { (result: Result<[PostModel], APIError>) in
+        _ = network.fetchData(endpoint: endpoint) { (result: Result<[PostModel], APIError>) in
             DispatchQueue.main.async {
                 completion(result)
             }
