@@ -16,30 +16,35 @@ enum APIError: LocalizedError {
 
 class Network {
     
-    let session: URLSession
-    let decoder: JSONDecoder
+    private let session: URLSession
+    private let decoder: JSONDecoder
     
     init(session: URLSession = URLSession.shared, decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
         self.decoder = decoder
     }
     
-    func fetchData<T: Decodable>(endpoint: APIEndpoint, completion: @escaping (Result<T, APIError>) -> Void) {
+    func fetchData<T: Decodable>(endpoint: APIEndpoint, completion: @escaping (Result<T, APIError>) -> Void) -> URLSessionDataTask? {
         guard let request = buildRequest(endpoint: endpoint) else {
             completion(.failure(.request))
-            return
+            return nil
         }
         let task = session.dataTask(with: request) { data, _, error in
             if let error = error {
                 completion(.failure(.server(error)))
                 return
             }
-            
+
             guard let data = data else {
                 completion(.failure(.empty))
                 return
             }
             
+            if let data = data as? T {
+                completion(.success(data))
+                return
+            }
+
             do {
                 let decoded = try self.decoder.decode(T.self, from: data)
                 completion(.success(decoded))
@@ -48,6 +53,7 @@ class Network {
             }
         }
         task.resume()
+        return task
     }
     
     private func buildRequest(endpoint: APIEndpoint) -> URLRequest? {

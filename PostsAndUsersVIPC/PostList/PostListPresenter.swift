@@ -9,16 +9,14 @@ import UIKit
 
 protocol PostListPresenting {
     var viewController: PostListDisplaying? { get }
-    var coordinator: PostListCoordinating { get }
     func presentError(_ error: Error)
-    func presentPosts(_ postList: [Post])
-    func showPostDetail(post: Post)
-    func initialConfig()
+    func presentPosts(_ postList: [PostModel])
+    func showPostDetail(post: PostModel)
 }
 
 class PostListPresenter {
     weak var viewController: PostListDisplaying?
-    var coordinator: PostListCoordinating
+    private let coordinator: PostListCoordinating
     
     init(coordinator: PostListCoordinating) {
         self.coordinator = coordinator
@@ -28,20 +26,15 @@ class PostListPresenter {
 
 extension PostListPresenter: PostListPresenting {
     
-    func initialConfig() {
-        viewController?.setTitle("Posts")
-        viewController?.setBackgroundColor(.systemBackground)
-    }
-    
     func presentError(_ error: Error) {
         viewController?.displayError(message: error.localizedDescription)
     }
     
-    func presentPosts(_ postList: [Post]) {
+    func presentPosts(_ postList: [PostModel]) {
         viewController?.displayPosts(postList)
     }
     
-    func showPostDetail(post: Post) {
+    func showPostDetail(post: PostModel) {
         coordinator.perform(action: .postDetail(post: post))
     }
 }

@@ -5,19 +5,17 @@
 //  Created by Bryan Barreto Soares on 13/09/21.
 //
 
-import UIKit
+import Foundation
 
-protocol PostListInteracting: UITableViewDataSource, UITableViewDelegate {
-    func didLoad()
+protocol PostListInteracting {
     func fetchPosts()
-    func didSelectPost(_ post: Post)
+    func didSelectPost(_ post: PostModel)
 }
 
-class PostListInteractor: NSObject {
+class PostListInteractor {
     
-    let presenter: PostListPresenting
-    let service: PostListServicing
-    var posts: [Post] = []
+    private let presenter: PostListPresenting
+    private let service: PostListServicing
     
     init(presenter: PostListPresenting, service: PostListServicing) {
         self.presenter = presenter
@@ -26,45 +24,19 @@ class PostListInteractor: NSObject {
 }
 
 extension PostListInteractor: PostListInteracting {
-    func didLoad() {
-        presenter.initialConfig()
-    }
     
     func fetchPosts() {
-        service.fetchPosts()
+        service.fetchPosts { [weak self] result in
+            switch result {
+            case let .success(postModels):
+                self?.presenter.presentPosts(postModels)
+            case let .failure(error):
+                self?.presenter.presentError(error)
+            }
+        }
     }
     
-    func didSelectPost(_ post: Post) {
+    func didSelectPost(_ post: PostModel) {
         presenter.showPostDetail(post: post)
-    }
-}
-
-extension PostListInteractor: PostListServiceDelegate {
-    func didFetch(data: [Post]) {
-        self.posts = data
-        presenter.presentPosts(data)
-    }
-    
-    func didFail(with error: Error) {
-        presenter.presentError(error)
-    }
-}
-
-extension PostListInteractor {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostListCell.id, for: indexPath) as? PostListCell
-        let post = posts[indexPath.row]
-        cell?.configure(post: post)
-        return cell ?? UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let post = posts[indexPath.row]
-        presenter.showPostDetail(post: post)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

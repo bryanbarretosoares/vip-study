@@ -44,7 +44,7 @@ class PostListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(post: Post) {
+    func configure(post: PostModel) {
         titleLabel.text = post.title
         bodyLabel.text = post.body
     }

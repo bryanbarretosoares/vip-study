@@ -9,19 +9,18 @@ import UIKit
 
 protocol PostListDisplaying: AnyObject {
     func displayError(message: String)
-    func displayPosts(_ posts: [Post])
-    func setTitle(_ title: String)
-    func setBackgroundColor(_ color: UIColor)
+    func displayPosts(_ posts: [PostModel])
 }
 
 class PostListViewController: UIViewController {
     
-    let interactor: PostListInteracting
+    private let interactor: PostListInteracting
+    private var posts: [PostModel] = []
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
-        table.delegate = interactor
-        table.dataSource = interactor
+        table.delegate = self
+        table.dataSource = self
         table.register(PostListCell.self, forCellReuseIdentifier: PostListCell.id)
         table.tableFooterView = UIView()
         table.backgroundView = loading
@@ -46,27 +45,25 @@ class PostListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        interactor.didLoad()
+        initialConfiguration()
         interactor.fetchPosts()
         buildLayout()
+    }
+    
+    private func initialConfiguration() {
+        view.backgroundColor = .systemBackground
+        title = "Posts"
     }
 }
 
 extension PostListViewController: PostListDisplaying {
-    func setTitle(_ title: String) {
-        self.title = title
-    }
-    
-    func setBackgroundColor(_ color: UIColor) {
-        self.view.backgroundColor = color
-    }
     
     func displayError(message: String) {
         print(message)
     }
     
-    func displayPosts(_ posts: [Post]) {
-//        self.posts = posts
+    func displayPosts(_ posts: [PostModel]) {
+        self.posts = posts
         self.tableView.reloadData()
         self.loading.stopAnimating()
     }
@@ -79,5 +76,25 @@ extension PostListViewController: ViewCoding {
     
     func setupConstraints() {
         tableView.frame = view.frame
+    }
+}
+
+extension PostListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let post = posts[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostListCell.id, for: indexPath) as? PostListCell
+        cell?.configure(post: post)
+        return cell ?? UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+}
+
+extension PostListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let post = posts[indexPath.row]
+        interactor.didSelectPost(post)
     }
 }

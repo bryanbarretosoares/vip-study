@@ -8,13 +8,7 @@
 import Foundation
 
 protocol PostListServicing {
-    var delegate: PostListServiceDelegate? { get }
-    func fetchPosts()
-}
-
-protocol PostListServiceDelegate: AnyObject {
-    func didFetch(data: [Post])
-    func didFail(with error: Error)
+    func fetchPosts(completion: @escaping (Result<[PostModel], APIError>) -> Void)
 }
 
 enum PostEndpoint: APIEndpoint {
@@ -30,8 +24,7 @@ enum PostEndpoint: APIEndpoint {
 
 class PostListService {
     
-    let network: Network
-    weak var delegate: PostListServiceDelegate?
+    private let network: Network
     
     init(network: Network = Network()) {
         self.network = network
@@ -39,16 +32,12 @@ class PostListService {
 }
 
 extension PostListService: PostListServicing {
-    func fetchPosts() {
+    
+    func fetchPosts(completion: @escaping (Result<[PostModel], APIError>) -> Void) {
         let endpoint: PostEndpoint = .getPost
-        network.fetchData(endpoint: endpoint) { (result: Result<[Post], APIError>) in
+        _ = network.fetchData(endpoint: endpoint) { (result: Result<[PostModel], APIError>) in
             DispatchQueue.main.async {
-                switch result {
-                case let .success(posts):
-                    self.delegate?.didFetch(data: posts)
-                case let .failure(error):
-                    self.delegate?.didFail(with: error)
-                }
+                completion(result)
             }
         }
     }

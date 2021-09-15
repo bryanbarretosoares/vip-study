@@ -8,7 +8,7 @@
 import UIKit
 
 enum PostDetailFactory {
-    static func make(post: Post) -> UIViewController {
+    static func make(post: PostModel) -> UIViewController {
         let controller = PostDetailViewController(post: post)
         return controller
     }
