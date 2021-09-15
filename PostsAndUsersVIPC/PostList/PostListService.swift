@@ -30,7 +30,7 @@ enum PostEndpoint: APIEndpoint {
 
 class PostListService {
     
-    let network: Network
+    private let network: Network
     weak var delegate: PostListServiceDelegate?
     
     init(network: Network = Network()) {
