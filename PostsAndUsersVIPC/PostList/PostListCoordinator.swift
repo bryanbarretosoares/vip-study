@@ -9,7 +9,7 @@ import UIKit
 
 enum coordinatorActions {
     case userDetail(id: Int)
-    case postDetail(post: Post)
+    case postDetail(post: PostModel)
 }
 
 protocol PostListCoordinating: AnyObject {

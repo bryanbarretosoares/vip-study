@@ -9,7 +9,7 @@ import UIKit
 
 class PostDetailViewController: UIViewController {
     
-    let post: Post
+    let post: PostModel
     
     private lazy var titleLabel: UILabel = {
         return buildLabel(font: UIFont.systemFont(ofSize: 20, weight: .bold), lines: 0)
@@ -39,7 +39,7 @@ class PostDetailViewController: UIViewController {
         return stack
     }()
     
-    init(post: Post) {
+    init(post: PostModel) {
         self.post = post
         super.init(nibName: nil, bundle: nil)
     }

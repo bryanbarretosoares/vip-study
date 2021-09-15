@@ -10,8 +10,8 @@ import UIKit
 protocol PostListPresenting {
     var viewController: PostListDisplaying? { get }
     func presentError(_ error: Error)
-    func presentPosts(_ postList: [Post])
-    func showPostDetail(post: Post)
+    func presentPosts(_ postList: [PostModel])
+    func showPostDetail(post: PostModel)
 }
 
 class PostListPresenter {
@@ -30,11 +30,11 @@ extension PostListPresenter: PostListPresenting {
         viewController?.displayError(message: error.localizedDescription)
     }
     
-    func presentPosts(_ postList: [Post]) {
+    func presentPosts(_ postList: [PostModel]) {
         viewController?.displayPosts(postList)
     }
     
-    func showPostDetail(post: Post) {
+    func showPostDetail(post: PostModel) {
         coordinator.perform(action: .postDetail(post: post))
     }
 }

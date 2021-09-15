@@ -13,7 +13,7 @@ protocol PostListServicing {
 }
 
 protocol PostListServiceDelegate: AnyObject {
-    func didFetch(data: [Post])
+    func didFetch(data: [PostModel])
     func didFail(with error: Error)
 }
 
@@ -41,7 +41,7 @@ class PostListService {
 extension PostListService: PostListServicing {
     func fetchPosts() {
         let endpoint: PostEndpoint = .getPost
-        network.fetchData(endpoint: endpoint) { (result: Result<[Post], APIError>) in
+        network.fetchData(endpoint: endpoint) { (result: Result<[PostModel], APIError>) in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(posts):

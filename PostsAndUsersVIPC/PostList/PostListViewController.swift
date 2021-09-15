@@ -9,13 +9,13 @@ import UIKit
 
 protocol PostListDisplaying: AnyObject {
     func displayError(message: String)
-    func displayPosts(_ posts: [Post])
+    func displayPosts(_ posts: [PostModel])
 }
 
 class PostListViewController: UIViewController {
     
     private let interactor: PostListInteracting
-    private var posts: [Post] = []
+    private var posts: [PostModel] = []
     
     private lazy var tableView: UITableView = {
         let table = UITableView()
@@ -62,7 +62,7 @@ extension PostListViewController: PostListDisplaying {
         print(message)
     }
     
-    func displayPosts(_ posts: [Post]) {
+    func displayPosts(_ posts: [PostModel]) {
         self.posts = posts
         self.tableView.reloadData()
         self.loading.stopAnimating()

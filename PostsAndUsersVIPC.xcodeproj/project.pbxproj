@@ -17,7 +17,7 @@
 		30DD596D26EFFBAA0039ADF7 /* PostListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD596C26EFFBAA0039ADF7 /* PostListInteractor.swift */; };
 		30DD597126EFFBBF0039ADF7 /* PostListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD597026EFFBBF0039ADF7 /* PostListPresenter.swift */; };
 		30DD597326EFFBC30039ADF7 /* PostListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD597226EFFBC30039ADF7 /* PostListService.swift */; };
-		30DD597526EFFBCD0039ADF7 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD597426EFFBCD0039ADF7 /* Post.swift */; };
+		30DD597526EFFBCD0039ADF7 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD597426EFFBCD0039ADF7 /* PostModel.swift */; };
 		30DD5A7626EFFE420039ADF7 /* ViewCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD5A7526EFFE420039ADF7 /* ViewCoding.swift */; };
 		30DD5A7826F000090039ADF7 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD5A7726F000090039ADF7 /* APIEndpoint.swift */; };
 		30DD5A7B26F000920039ADF7 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DD5A7A26F000920039ADF7 /* HTTPMethod.swift */; };
@@ -41,7 +41,7 @@
 		30DD596C26EFFBAA0039ADF7 /* PostListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListInteractor.swift; sourceTree = "<group>"; };
 		30DD597026EFFBBF0039ADF7 /* PostListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListPresenter.swift; sourceTree = "<group>"; };
 		30DD597226EFFBC30039ADF7 /* PostListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListService.swift; sourceTree = "<group>"; };
-		30DD597426EFFBCD0039ADF7 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		30DD597426EFFBCD0039ADF7 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		30DD5A7526EFFE420039ADF7 /* ViewCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoding.swift; sourceTree = "<group>"; };
 		30DD5A7726F000090039ADF7 /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
 		30DD5A7A26F000920039ADF7 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 				30DD596C26EFFBAA0039ADF7 /* PostListInteractor.swift */,
 				30DD597026EFFBBF0039ADF7 /* PostListPresenter.swift */,
 				30DD597226EFFBC30039ADF7 /* PostListService.swift */,
-				30DD597426EFFBCD0039ADF7 /* Post.swift */,
+				30DD597426EFFBCD0039ADF7 /* PostModel.swift */,
 				30DD5A7E26F0267F0039ADF7 /* PostListCoordinator.swift */,
 				30DD5A8026F02AFA0039ADF7 /* PostListCell.swift */,
 			);
@@ -207,7 +207,7 @@
 				30DD5A7D26F000DE0039ADF7 /* Network.swift in Sources */,
 				30DD597326EFFBC30039ADF7 /* PostListService.swift in Sources */,
 				30DD5A7B26F000920039ADF7 /* HTTPMethod.swift in Sources */,
-				30DD597526EFFBCD0039ADF7 /* Post.swift in Sources */,
+				30DD597526EFFBCD0039ADF7 /* PostModel.swift in Sources */,
 				30DD5A8526F02EAB0039ADF7 /* PostDetailViewController.swift in Sources */,
 				30DD5A7626EFFE420039ADF7 /* ViewCoding.swift in Sources */,
 				30DD596B26EFFBA40039ADF7 /* PostListViewController.swift in Sources */,

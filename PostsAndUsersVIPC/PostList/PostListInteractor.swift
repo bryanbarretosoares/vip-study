@@ -9,7 +9,7 @@ import Foundation
 
 protocol PostListInteracting {
     func fetchPosts()
-    func didSelectPost(_ post: Post)
+    func didSelectPost(_ post: PostModel)
 }
 
 class PostListInteractor {
@@ -29,13 +29,13 @@ extension PostListInteractor: PostListInteracting {
         service.fetchPosts()
     }
     
-    func didSelectPost(_ post: Post) {
+    func didSelectPost(_ post: PostModel) {
         presenter.showPostDetail(post: post)
     }
 }
 
 extension PostListInteractor: PostListServiceDelegate {
-    func didFetch(data: [Post]) {
+    func didFetch(data: [PostModel]) {
         presenter.presentPosts(data)
     }
     
