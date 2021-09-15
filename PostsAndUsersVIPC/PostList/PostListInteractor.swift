@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol PostListInteracting: UITableViewDataSource, UITableViewDelegate {
+protocol PostListInteracting {
     func didLoad()
     func fetchPosts()
     func didSelectPost(_ post: Post)
 }
 
-class PostListInteractor: NSObject {
+class PostListInteractor {
     
     let presenter: PostListPresenting
     let service: PostListServicing
@@ -47,24 +47,5 @@ extension PostListInteractor: PostListServiceDelegate {
     
     func didFail(with error: Error) {
         presenter.presentError(error)
-    }
-}
-
-extension PostListInteractor {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return posts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostListCell.id, for: indexPath) as? PostListCell
-        let post = posts[indexPath.row]
-        cell?.configure(post: post)
-        return cell ?? UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let post = posts[indexPath.row]
-        presenter.showPostDetail(post: post)
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
