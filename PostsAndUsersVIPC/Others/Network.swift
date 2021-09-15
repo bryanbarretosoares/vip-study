@@ -16,8 +16,8 @@ enum APIError: LocalizedError {
 
 class Network {
     
-    let session: URLSession
-    let decoder: JSONDecoder
+    private let session: URLSession
+    private let decoder: JSONDecoder
     
     init(session: URLSession = URLSession.shared, decoder: JSONDecoder = JSONDecoder()) {
         self.session = session
