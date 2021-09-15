@@ -9,11 +9,8 @@ import UIKit
 
 enum PostListFactory {
     static func make() -> UIViewController {
-        let session = URLSession.shared
-        let decoder = JSONDecoder()
         let coordinator = PostListCoordinator()
-        let network = Network(session: session, decoder: decoder)
-        let service = PostListService(network: network)
+        let service = PostListService()
         let presenter = PostListPresenter(coordinator: coordinator)
         let interactor = PostListInteractor(presenter: presenter, service: service)
         let viewController = PostListViewController(interactor: interactor)
